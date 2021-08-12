@@ -26,8 +26,10 @@ function ArrayAddition(arr) {
 
   let arrayLength = mx;
 
-  if ( items[items.length - 1] < 0 ) {
-    arrayLength -= items[items.length - 1];
+  for (i = 0; i < items.length; i ++) {
+    if ( items[i] < 0 ) {
+      arrayLength -= items[i];
+    }
   }
 
   for (i = 0; i <= arrayLength; i ++) {
