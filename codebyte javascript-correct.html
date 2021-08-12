@@ -4,7 +4,8 @@
 
 <h2>ArrayAddition</h2>
 
-<p>return the string true if any combination of numbers in the array (excluding the largest number)</p>
+<p>Shows true if any combination of numbers in the array (excluding the largest number)</p>
+<p>Wrong Result for Negative numbers</p>
 
 <p id="test1"></p>
 <p id="test2"></p>
@@ -12,39 +13,37 @@
 <p id="test4"></p>
 
 <script>
-let arr = [3,7,11,19,23,41];
-let mx = Math.max.apply(Math, arr)    // 3
-let items = [], vis = [], vis_temp = [];
-let i, j;
-for (i = 0; i < arr.length; i ++) if(arr[i] != mx) items.push(arr[i]);
 
-items.sort(function(a, b) {
-  return a - b;
-});
+function ArrayAddition(arr) {
+  let mx = Math.max.apply(Math, arr);
+  let items = [], vis = [], vis_temp = [];
+  let i, j;
+  for (i = 0; i < arr.length; i ++) if(arr[i] != mx) items.push(arr[i]);
 
-for (i = 0; i <= mx; i ++) {
-  vis.push(0);
-    vis_temp.push(0);
-}
-vis[0] = 1;
-for (i = 0; i < items.length; i ++) {
-  for (j = 0; j <= mx; j ++) vis_temp[j] = vis[j];
-  for (j = 0; j <= mx; j ++) if(vis[j]) {
-      vis_temp[j + items[i]] = 1;
-    }
+  items.sort(function(a, b) {
+    return a - b;
+  });
+
+  for (i = 0; i <= mx; i ++) {
+    vis.push(0);
+      vis_temp.push(0);
+  }
+  vis[0] = 1;
+  for (i = 0; i < items.length; i ++) {
+    for (j = 0; j <= mx; j ++) vis_temp[j] = vis[j];
+    for (j = 0; j <= mx; j ++) if(vis[j] && (j + items[i] <= mx)) {
+        vis_temp[j + items[i]] = 1;
+      }
     for (j = 0; j <= mx; j ++) vis[j] = vis_temp[j];
-}
-document.getElementById("test1").innerHTML =
-"The value : " + vis[mx] == 1 ? "True" : "False" ;
+  }
 
-// document.getElementById("test1").innerHTML =
-// "[4, 6, 23, 10, 1, 3]  return value is : " + ArrayAddition([4, 6, 23, 10, 1, 3] );
-// document.getElementById("test2").innerHTML =
-// "[5,7,16,1,2] return value is : " + ArrayAddition([5,7,16,1,2]);
-// document.getElementById("test3").innerHTML =
-// "[3,5,-1,8,12] return value is : " + ArrayAddition([3,5,-1,8,12]);
-// document.getElementById("test4").innerHTML =
-// "[3,7,11,19,23,41] return value is : " + ArrayAddition([3,7,11,19,23,41]);
+  return vis[mx] == 1 ? true : false
+}
+
+document.getElementById("test1").innerHTML = "[4, 6, 23, 10, 1, 3]  return value is : " + ArrayAddition([4, 6, 23, 10, 1, 3] );
+document.getElementById("test2").innerHTML = "[5,7,16,1,2] return value is : " + ArrayAddition([5,7,16,1,2]);
+document.getElementById("test3").innerHTML = "[3,5,-1,8,12] return value is : " + ArrayAddition([3,5,-1,8,12]);
+document.getElementById("test4").innerHTML = "[3,7,11,19,23,41] return value is : " + ArrayAddition([3,7,11,19,23,41]);
 </script>
 
 </body>
