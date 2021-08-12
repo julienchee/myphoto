@@ -5,7 +5,7 @@
 <h2>ArrayAddition</h2>
 
 <p>Shows true if any combination of numbers in the array (excluding the largest number)</p>
-<p>Wrong Result for Negative numbers</p>
+<p>Correct Result for all cases</p>
 
 <p id="test1"></p>
 <p id="test2"></p>
@@ -21,20 +21,26 @@ function ArrayAddition(arr) {
   for (i = 0; i < arr.length; i ++) if(arr[i] != mx) items.push(arr[i]);
 
   items.sort(function(a, b) {
-    return a - b;
+    return b - a;
   });
 
-  for (i = 0; i <= mx; i ++) {
+  let arrayLength = mx;
+
+  if ( items[items.length - 1] < 0 ) {
+    arrayLength -= items[items.length - 1];
+  }
+
+  for (i = 0; i <= arrayLength; i ++) {
     vis.push(0);
       vis_temp.push(0);
   }
   vis[0] = 1;
   for (i = 0; i < items.length; i ++) {
-    for (j = 0; j <= mx; j ++) vis_temp[j] = vis[j];
-    for (j = 0; j <= mx; j ++) if(vis[j] && (j + items[i] <= mx)) {
+    for (j = 0; j <= arrayLength; j ++) vis_temp[j] = vis[j];
+    for (j = 0; j <= arrayLength; j ++) if(vis[j] && (j + items[i] <= arrayLength)) {
         vis_temp[j + items[i]] = 1;
       }
-    for (j = 0; j <= mx; j ++) vis[j] = vis_temp[j];
+    for (j = 0; j <= arrayLength; j ++) vis[j] = vis_temp[j];
   }
 
   return vis[mx] == 1 ? true : false
