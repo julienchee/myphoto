@@ -74,3 +74,29 @@ function ArrayAddition(arr) {
     
   return false;
 }
+
+let arr = [1, 3, 4, 9];
+let mx = Math.max.apply(Math, arr)    // 3
+let items = [], vis = [], vis_temp = [];
+let i, j;
+for (i = 0; i < arr.length; i ++) if(arr[i] != mx) items.push(arr[i]);
+
+items.sort(function(a, b) {
+  return a - b;
+});
+
+for (i = 0; i <= mx; i ++) {
+  vis.push(0);
+    vis_temp.push(0);
+}
+vis[0] = 1;
+for (i = 0; i < items.length; i ++) {
+  for (j = 0; j <= mx; j ++) vis_temp[j] = vis[j];
+  for (j = 0; j <= mx; j ++) if(vis[j]) {
+      vis_temp[j + items[i]] = 1;
+    }
+    for (j = 0; j <= mx; j ++) vis[j] = vis_temp[j];
+}
+document.getElementById("demo").innerHTML =
+"The value of z is: " + vis[mx] ? "True" : "False" ;
+</script>
