@@ -1,3 +1,5 @@
+// find smallest integer which is not in array A
+// And the integer should bigger than zero
 function removeDuplicates(A)
 {
     let length = A.length;
