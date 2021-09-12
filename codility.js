@@ -26,11 +26,11 @@ function solution(A) {
       i++;
     }
 
-    while (j > 0 && a[j] == a[j - 1]) {
+    while (j > i && a[j] == a[j - 1]) {
       j--;
     }
 
-    if (j < i) {
+    if (j == i) {
       result = 0;
     } else {
       i++;
