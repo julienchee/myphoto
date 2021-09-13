@@ -1,0 +1,105 @@
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+
+function solution(A) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    let N = A.length;
+    let p = 0;
+    let q = 1;
+    let vp;
+    let vq = A[q];
+    let i;
+
+    for (i = 2; i < N - 1; i++) {
+        if (A[i] < vq) {
+            vq = A[i];
+            q = i;
+        }
+    }
+
+    for (i = 1; i < N - 1; i++) {
+        if (q != i) {
+            if (p == 0) {
+                vp = A[i];
+                p = i;
+            }
+            if (A[i] < vp) {
+                vp = A[i];
+                p = i;
+            }
+        }
+    }
+
+    let w;
+    if (p > q) {
+        w = p;
+        p = q;
+        q = w;
+        w = vp;
+        vp = vq;
+        vq = w;
+    }
+
+    if (q - p > 1) {
+        return vp + vq;
+    } else {
+
+        let vx = 0;
+        let x = 0;
+        for (i = 1; i < N - 1; i++) {
+            if (i != q && i != p) {
+                if (x == 0) {
+                    vx = A[i];
+                    x = i;
+                }
+
+                if (A[i] < vx) {
+                    vx = A[i];
+                    x = i;
+                }
+            }
+        }
+
+        let min_value = vp < vq ? vp : vq;
+
+        if ((x - p) * (x - p) > 1 && (x - q) * (x - q) > 1) {
+            return min_value + vx;
+        } else {
+            
+            if (x < p && vq < vp) {
+                return vq + vx;
+            } else if (x > q && vq > vp){
+                return vp + vx;
+            }
+
+            let vf = 0;
+            let f = 0;
+            for (i = 1; i < N - 1; i++) {
+                if (i != q && i != p && i != x) {
+                    if (f == 0) {
+                        vf = A[i];
+                        f = i;
+                    }
+
+                    if (A[i] < vf) {
+                        vf = A[i];
+                        f = i;
+                    }
+                }
+            }
+
+            let temp;
+            let result;
+
+            if (x < p) {
+                temp = vf + vq ;
+                result = vp + vx;
+                return result < temp ? result : temp;
+            } else {
+                temp = vf + vp ;
+                result = vq + vx;
+                return result < temp ? result : temp;
+            }
+        }
+    }
+}

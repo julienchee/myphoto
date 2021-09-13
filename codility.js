@@ -15,18 +15,18 @@ function solution(A) {
   var N = A.length;
   var result = 0;
   var i, j;
+
   j = N -1;
-    
   i = 0;
 
   if (A[j] != A[i]) {
     result = j - i;
   } else {
-    while (i < (N - 1) && a[i] == a[i + 1]) {
+    while (i < (N - 1) && A[i] == A[i + 1]) {
       i++;
     }
 
-    while (j > i && a[j] == a[j - 1]) {
+    while (j > i && A[j] == A[j - 1]) {
       j--;
     }
 
